@@ -119,6 +119,7 @@ int main (int argc, char *argv[]) {
 				break;
 			default:
 				waitpid(fork1, NULL, 0);
+				if (data.notify) fclose(data.notify);
 				execvp(*argv, argv);
 				return 1;
 		}
