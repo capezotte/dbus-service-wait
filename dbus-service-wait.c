@@ -1,25 +1,3 @@
-/*
-dbus-service-wait
-
-Original Unit2OpenRC comment, by kozec:
-  Simple executable that waits until service with name passed as argument
-  is available and exits with exit code 0.
-
-  If anything fails, exits with code 1.
-
-Changes:
-  Fix typo (excepted -> expected)
-  Misc spacing issues
-  Use arg.h to follow POSIX utility syntax guidelines
-    (more specifically, not require a space)
-  -d option: write newline to an fd once a name is acquired
-    Useful for simulating systemd Type=bus services under s6 and dinit.
-    For instance, you can write to the `run' file or to command=:
-      dbus-service-wait -d3 net.connman.iwd iwd
-  Additional arguments are treated as program to spawn
-    Makes using -d more convenient.
-*/
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -249,7 +227,7 @@ static DBusHandlerResult check_nameowner_changed (DBusConnection *bus, DBusMessa
 
 
 static int help(FILE *fd, ProgramData *data) {
-	fprintf (fd, "Usage: %s [-t timeout] [ -d fd ] BusName [prog...]\n", data->arg0);
+	fprintf (fd, "Usage: %s [-t timeout] [-d fd] BusName [prog...]\n", data->arg0);
 	fprintf (fd, "   or: %s [-h]\n", data->arg0);
 	fprintf (fd, "\n");
 	fprintf (fd, "Waits until specified the D-Bus bus name is acquired. If prog is provided, the waiting will be done in a grandchild of prog.\n");

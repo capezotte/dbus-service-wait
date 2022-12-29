@@ -1,1 +1,24 @@
-Enhanced version of the dbus-service-wait executable found at https://github.com/kozec/unit2openrc/blob/master/dbus-service-wait.c.
+Enhanced version of the dbus-service-wait executable found at
+https://github.com/kozec/unit2openrc/blob/master/dbus-service-wait.c.
+
+Original description:
+  Simple executable that waits until service with name passed as argument
+  is available and exits with exit code 0.
+
+  If anything fails, exits with code 1.
+
+Changes:
+  Fix typo (excepted -> expected)
+  Use the session bus if available.
+    Remove DBUS_SESSION_BUS_ADDRESS from the environment to force the system
+    bus.
+  Misc spacing issues
+  Use arg.h to follow POSIX utility syntax guidelines
+    (more specifically, not require a space)
+  Additional arguments are treated as program to exec(3) into.
+    Listening for readiness then happens on the background.
+  -d option: write newline to an fd (>=3) once a name is acquired.
+    With additional arguments, useful for simulating systemd Type=bus services
+    under s6 and dinit. For instance, you can write to the `run' file or to
+    command= (use 3 as the notify-fd):
+      dbus-service-wait -d3 net.connman.iwd iwd
