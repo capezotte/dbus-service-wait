@@ -196,9 +196,10 @@ static void parse_service_list(ProgramData *data) {
 			const char *name;
 			dbus_message_iter_get_basic(&value, &name);
 			if (strcmp(data->expected_name, name) == 0) {
-				if (data->notify)
+				if (data->notify) {
 					fputs("\n", data->notify);
 					fclose(data->notify);
+				}
 				exit(0);
 			}
 			dbus_message_iter_next(&value);
